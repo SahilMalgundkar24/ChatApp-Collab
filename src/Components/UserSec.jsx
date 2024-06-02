@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from 'react'
 
 const UserSec = () => {
@@ -34,9 +35,38 @@ const UserSec = () => {
                     Add a User
                 </button>
             </div>
-        </div>
-    </>
-  )
-}
+=======
+import React from "react";
+import { auth } from "../firebase/config";
 
-export default UserSec
+const UserSec = () => {
+  const signout = () => {
+    auth.signOut();
+  };
+  return (
+    <>
+      <div className="h-full w-1/4 color1 flex flex-col">
+        <div className="w-full height10 text-center mt-2 poppins text-2xl text-white">
+          Chatting App
+>>>>>>> bef9f008e32331cec18dd6bc7a8fea6117129193
+        </div>
+        <div className="w-full scrollabe height80 overflow-y-scroll "></div>
+        <div className="w-full height10 flex items-center justify-center p-4">
+          <button
+            className="w-full h-full color3 rounded-lg text-white poppins"
+            onClick={signout}
+          >
+            signout
+          </button>
+        </div>
+        <div className="w-full height10 flex items-center justify-center p-4">
+          <button className="w-full h-full color3 rounded-lg text-white poppins">
+            Add a User
+          </button>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default UserSec;
