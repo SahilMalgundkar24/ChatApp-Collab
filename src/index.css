@@ -46,10 +46,18 @@ body{
   font-style: normal;
   font-weight: 200;
 }
+.poppins-bold{
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+}
 
 
 .height10{
   height: 10%;
+}
+.height20{
+  height: 20%;
 }
 .height15{
   height: 15%;
@@ -57,7 +65,9 @@ body{
 .height80{
   height: 80%;
 }
-
+.height70{
+  height: 70%;
+}
 
 .hidden{
   display: none;
