@@ -53,11 +53,9 @@ const UserSec = () => {
   return (
     <>
       <div className="h-full w-1/4 color1 flex flex-col">
-        <div className="w-full height10 flex justify-between mt-2 px-5 poppins-bold text-2xl text-white">
-          <div>Chatting App</div>
-          <div onClick={modalclicked}>
-            <IoIosNotifications />
-          </div>
+        <div className="w-full height10 flex mt-2 px-5 poppins-bold text-2xl text-white">
+          Chatting App
+          
         </div>
         <div className="w-full scrollabe height70 overflow-y-scroll ">
           <div className="w-full h-12 hover:bg-black text-white poppins flex items-center text-xl px-5 ">
@@ -70,7 +68,7 @@ const UserSec = () => {
 
         <div className="w-full height10 flex flex-col items-center justify-center px-3 py-2">
           <div className="w-full h-full">
-            {adduser && (
+            
               <div className="w-full h-full flex justify-between">
                 <input
                   type="text"
@@ -85,7 +83,7 @@ const UserSec = () => {
                   Add
                 </button>
               </div>
-            )}
+            
           </div>
         </div>
 
@@ -97,14 +95,7 @@ const UserSec = () => {
             signout
           </button>
         </div>
-        <div className="w-full height20 flex flex-col items-center justify-center p-4">
-          <button
-            className="w-full h-1/2 color3 rounded-lg text-white poppins"
-            onClick={buttonclicked}
-          >
-            Add a User
-          </button>
-        </div>
+        
         {showmodal && (
           <div className="absolute inset-0 h-70 mt-16 w-1/4 color1 flex flex-col">
             <div className="w-full h-12 hover:bg-black flex justify-between items-center px-5 ">
