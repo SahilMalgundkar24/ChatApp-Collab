@@ -11,11 +11,7 @@ const App = () => {
   return (
     <>
       {user ? <HomePage /> : <LoginSign />}
-      <div className="h-screen w-screen flex">
-        {/* <UserSec/>
-        <MessageSec/> */}
-      </div>
-      {/* <LoginSign/> */}
+      
     </>
   );
 };

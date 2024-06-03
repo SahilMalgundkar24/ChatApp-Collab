@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { IoIosNotifications } from "react-icons/io";
 
 const UserSec = () => {
   const signout = () => {
@@ -12,8 +13,13 @@ const UserSec = () => {
   return (
     <>
       <div className="h-full w-1/4 color1 flex flex-col">
-        <div className="w-full height10 text-center mt-2 poppins-bold text-2xl text-white">
-          Chatting App
+        <div className="w-full height10 flex justify-between mt-2 px-5 poppins-bold text-2xl text-white">
+          <div>
+            Chatting App
+          </div>
+          <div>
+            <IoIosNotifications />
+          </div>
         </div>
         <div className="w-full scrollabe height70 overflow-y-scroll ">
           <div className="w-full h-12 hover:bg-black text-white poppins flex items-center text-xl px-5 ">
@@ -34,12 +40,15 @@ const UserSec = () => {
         <div className="w-full height20 flex flex-col items-center justify-center p-4">
           <div className="w-full h-1/2">
             {adduser && (
-              <div className="w-full">
+              <div className="w-full h-full">
                 <input
                   type="text"
                   placeholder="Enter username"
-                  className="w-full p-2 border rounded-lg"
+                  className="w-3/4 p-2 border rounded-lg"
                 />
+                <button className="w-1/4 h-full color3 rounded-lg text-white poppins">
+                  Add
+                </button>
               </div>
             )}
           </div>
