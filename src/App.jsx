@@ -14,11 +14,7 @@ const App = () => {
         <div className="h-screen text-center text-4xl">Loading...</div>
       ) : null}
       {user ? <HomePage /> : <LoginSign />}
-      <div className="h-screen w-screen flex">
-        {/* <UserSec/>
-        <MessageSec/> */}
-      </div>
-      {/* <LoginSign/> */}
+      
     </>
   );
 };

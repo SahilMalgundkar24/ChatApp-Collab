@@ -1,14 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { auth, db } from "../firebase/config";
-import {
-  collection,
-  query,
-  where,
-  getDocs,
-  onSnapshot,
-  doc,
-} from "firebase/firestore";
-import { useAuthState } from "react-firebase-hooks/auth";
+import React, { useState } from "react";
 
 const UserSec = () => {
   const [user] = useAuthState(auth);
@@ -28,6 +18,11 @@ const UserSec = () => {
   };
   const [adduser, setadduser] = useState(false);
   const [search, setSearch] = useState("");
+  const [showmodal, setshowmodal] = useState(false);
+
+  const modalclicked = () => {
+    setshowmodal(!showmodal);
+  };
 
   const buttonclicked = () => {
     setadduser(!adduser);
@@ -53,8 +48,11 @@ const UserSec = () => {
   return (
     <>
       <div className="h-full w-1/4 color1 flex flex-col">
-        <div className="w-full height10 text-center mt-2 poppins-bold text-2xl text-white">
-          Chatting App
+        <div className="w-full height10 flex justify-between mt-2 px-5 poppins-bold text-2xl text-white">
+          <div>Chatting App</div>
+          <div onClick={modalclicked}>
+            <IoIosNotifications />
+          </div>
         </div>
         <div className="w-full scrollabe height70 overflow-y-scroll ">
           <div className="w-full h-12 hover:bg-black text-white poppins flex items-center text-xl px-5 ">
@@ -63,16 +61,26 @@ const UserSec = () => {
           <div className="w-full h-12 hover:bg-black text-white poppins flex items-center text-xl px-5 ">
             Sahil Malgundkar
           </div>
-          {chatList.list.map((chat) => {
-            <div
-              key={chat.uid}
-              className="w-full h-12 hover:bg-black text-white poppins flex items-center text-xl px-5 "
-            >
-              {chat.username}
-            </div>;
-          })}
         </div>
-        <div className="w-full height10 flex items-center justify-center p-4">
+
+        <div className="w-full height10 flex flex-col items-center justify-center px-3 py-2">
+          <div className="w-full h-full">
+            {adduser && (
+              <div className="w-full h-full flex justify-between">
+                <input
+                  type="text"
+                  placeholder="Enter username to add a friend"
+                  className=" h-3/4 w-3/4 p-2 border rounded-lg"
+                />
+                <button className=" w-1/5 h-3/4 color3 rounded-lg text-white poppins">
+                  Add
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="w-full height10 flex items-center justify-center px-4 py-2">
           <button
             className="w-full h-full color3 rounded-lg text-white poppins"
             onClick={signout}
@@ -83,16 +91,12 @@ const UserSec = () => {
         <div className="w-full height20 flex flex-col items-center justify-center p-4">
           <div className="w-full h-1/2">
             {adduser && (
-              <div className="w-full flex flex-row">
+              <div className="w-full">
                 <input
                   type="text"
                   placeholder="Enter username"
                   className="w-full p-2 border rounded-lg"
-                  onChange={(e) => setSearch(e.target.value)}
                 />
-                <button className="bg-white" onClick={handleSearch}>
-                  Find
-                </button>
               </div>
             )}
           </div>
