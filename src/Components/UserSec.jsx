@@ -1,4 +1,11 @@
-import { doc, onSnapshot } from "firebase/firestore";
+import {
+  doc,
+  onSnapshot,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import React, { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase/config";
@@ -55,7 +62,6 @@ const UserSec = () => {
       <div className="h-full w-1/4 color1 flex flex-col">
         <div className="w-full height10 flex mt-2 px-5 poppins-bold text-2xl text-white">
           Chatting App
-          
         </div>
         <div className="w-full scrollabe height70 overflow-y-scroll ">
           <div className="w-full h-12 hover:bg-black text-white poppins flex items-center text-xl px-5 ">
@@ -68,22 +74,20 @@ const UserSec = () => {
 
         <div className="w-full height10 flex flex-col items-center justify-center px-3 py-2">
           <div className="w-full h-full">
-            
-              <div className="w-full h-full flex justify-between">
-                <input
-                  type="text"
-                  placeholder="Enter username to add a friend"
-                  className=" h-3/4 w-3/4 p-2 border rounded-lg"
-                  onChange={(e) => setSearch(e.target.value)}
-                />
-                <button
-                  className=" w-1/5 h-3/4 color3 rounded-lg text-white poppins"
-                  onClick={handleSearch}
-                >
-                  Add
-                </button>
-              </div>
-            
+            <div className="w-full h-full flex justify-between">
+              <input
+                type="text"
+                placeholder="Enter username to add a friend"
+                className=" h-3/4 w-3/4 p-2 border rounded-lg"
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              <button
+                className=" w-1/5 h-3/4 color3 rounded-lg text-white poppins"
+                onClick={handleSearch}
+              >
+                Add
+              </button>
+            </div>
           </div>
         </div>
 
@@ -95,7 +99,7 @@ const UserSec = () => {
             signout
           </button>
         </div>
-        
+
         {showmodal && (
           <div className="absolute inset-0 h-70 mt-16 w-1/4 color1 flex flex-col">
             <div className="w-full h-12 hover:bg-black flex justify-between items-center px-5 ">

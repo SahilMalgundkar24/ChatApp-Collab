@@ -11,10 +11,14 @@ const App = () => {
   return (
     <>
       {loading ? (
-        <div className="h-screen text-center text-4xl">Loading...</div>
-      ) : null}
-      {user ? <HomePage /> : <LoginSign />}
-      
+        <div className="flex items-center justify-center h-screen">
+          <div className="lds-dual-ring text-4xl">LOADINGGGGG</div>
+        </div>
+      ) : user ? (
+        <HomePage />
+      ) : (
+        <LoginSign />
+      )}
     </>
   );
 };
