@@ -7,9 +7,12 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase/config";
 
 const App = () => {
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   return (
     <>
+      {loading ? (
+        <div className="h-screen text-center text-4xl">Loading...</div>
+      ) : null}
       {user ? <HomePage /> : <LoginSign />}
       <div className="h-screen w-screen flex">
         {/* <UserSec/>

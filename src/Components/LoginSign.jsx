@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { auth } from "../firebase/config";
+import { auth, db } from "../firebase/config";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 const LoginSign = () => {
   const [logEmail, setlogEmail] = useState("");
@@ -14,26 +15,41 @@ const LoginSign = () => {
   const [signPass, setsignPass] = useState("");
 
   const signup = async () => {
-    createUserWithEmailAndPassword(auth, signEmail, signPass)
+    let user;
+    await createUserWithEmailAndPassword(auth, signEmail, signPass)
       .then((userCredential) => {
         // Signed up
-        const user = userCredential.user;
-        updateProfile(auth.currentUser, { displayName: signUser }).catch(
-          (err) => console.log(err)
-        );
-        // ...
+        user = userCredential.user;
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
       });
+    console.log("", user);
+    await updateProfile(auth.currentUser, { displayName: signUser }).catch(
+      (err) => console.log(err)
+    );
+    try {
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
+        username: user.displayName,
+        uid: user.uid,
+      });
+      await setDoc(doc(db, "friendList", user.uid), {
+        list: [],
+      });
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+
+    // ...
   };
   const login = () => {
     signInWithEmailAndPassword(auth, logEmail, logPass)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        console.log(user);
         // ...
       })
       .catch((error) => {
@@ -100,13 +116,13 @@ const LoginSign = () => {
                   className="block text-white text-sm font-bold mb-2"
                   htmlFor="new-Username"
                 >
-                  Username
+                  Name
                 </label>
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="new-username"
                   type="text"
-                  placeholder="Username"
+                  placeholder="Name"
                   onChange={(e) => setsignUser(e.target.value)}
                 />
               </div>
