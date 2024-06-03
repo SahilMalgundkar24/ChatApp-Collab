@@ -47,10 +47,10 @@ const UserSec = () => {
       const querySnapshot = await getDocs(q);
 
       if (!querySnapshot.empty) {
-        console.log("user found");
+        alert("user found");
         console.log(querySnapshot.docs[0].data());
       } else {
-        console.log("user not found");
+        alert("user not found");
       }
     } catch (error) {
       console.error(error);
