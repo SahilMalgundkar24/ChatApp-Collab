@@ -1,5 +1,5 @@
 import { doc, onSnapshot } from "firebase/firestore";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase/config";
 import { IoIosNotifications } from "react-icons/io";
@@ -16,10 +16,11 @@ const UserSec = () => {
       unsubscribe();
     };
   }, [user.uid]);
-  console.log(chatList);
+
   const signout = () => {
     auth.signOut();
   };
+
   const [adduser, setadduser] = useState(false);
   const [search, setSearch] = useState("");
   const [showmodal, setshowmodal] = useState(false);
@@ -97,17 +98,6 @@ const UserSec = () => {
           </button>
         </div>
         <div className="w-full height20 flex flex-col items-center justify-center p-4">
-          <div className="w-full h-1/2">
-            {adduser && (
-              <div className="w-full">
-                <input
-                  type="text"
-                  placeholder="Enter username"
-                  className="w-full p-2 border rounded-lg"
-                />
-              </div>
-            )}
-          </div>
           <button
             className="w-full h-1/2 color3 rounded-lg text-white poppins"
             onClick={buttonclicked}
@@ -115,6 +105,19 @@ const UserSec = () => {
             Add a User
           </button>
         </div>
+        {showmodal && (
+          <div className="absolute inset-0 h-70 mt-16 w-1/4 color1 flex flex-col">
+            <div className="w-full h-12 hover:bg-black flex justify-between items-center px-5 ">
+              <div className="text-white poppins text-xl">Anushka</div>
+              <button className=" color6 p-1 w-20 rounded-lg">Accept</button>
+            </div>
+
+            <div className="w-full h-12 hover:bg-black flex justify-between items-center px-5 ">
+              <div className="text-white poppins text-xl">Rupali</div>
+              <button className=" color6 p-1 w-20 rounded-lg">Accept</button>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
