@@ -13,7 +13,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase/config";
 import { IoIosNotifications } from "react-icons/io";
 
-const UserSec = () => {
+const UserSec = ({onuserclick}) => {
   const [user] = useAuthState(auth);
   const [chatList, setchatList] = useState([]);
   const [search, setSearch] = useState("");
@@ -42,18 +42,11 @@ const UserSec = () => {
         alert("user found");
         const userData = querySnapshot.docs[0].data();
         try {
-          await updateDoc(doc(db, "friendList", user.uid), {
+          const docRef = doc(db, "friendList", user.uid);
+          await updateDoc(docRef, {
             list: arrayUnion(userData), // Add the new item using arrayUnion
           });
           console.log("Item added successfully!");
-          const friendData = {
-            uid: user.uid,
-            email: user.email,
-            username: user.displayName,
-          };
-          await updateDoc(doc(db, "friendList", userData.uid), {
-            list: arrayUnion(friendData), // Add the new item using arrayUnion
-          });
         } catch (error) {
           console.error("Error adding item:", error);
         }
@@ -77,6 +70,7 @@ const UserSec = () => {
             <div
               key={chat.uid}
               className="w-full h-12 hover:bg-black text-white poppins flex items-center text-xl px-5 "
+              onClick={onuserclick}
             >
               {chat.username}
             </div>
