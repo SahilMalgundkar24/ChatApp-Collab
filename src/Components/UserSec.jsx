@@ -1,4 +1,8 @@
+import { doc, onSnapshot } from "firebase/firestore";
 import React, { useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db } from "../firebase/config";
+import { IoIosNotifications } from "react-icons/io";
 
 const UserSec = () => {
   const [user] = useAuthState(auth);
@@ -71,8 +75,12 @@ const UserSec = () => {
                   type="text"
                   placeholder="Enter username to add a friend"
                   className=" h-3/4 w-3/4 p-2 border rounded-lg"
+                  onChange={(e) => setSearch(e.target.value)}
                 />
-                <button className=" w-1/5 h-3/4 color3 rounded-lg text-white poppins">
+                <button
+                  className=" w-1/5 h-3/4 color3 rounded-lg text-white poppins"
+                  onClick={handleSearch}
+                >
                   Add
                 </button>
               </div>
