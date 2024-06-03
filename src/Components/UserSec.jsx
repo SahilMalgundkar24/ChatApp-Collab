@@ -7,20 +7,24 @@ import {
   getDocs,
   updateDoc,
   arrayUnion,
+  setDoc,
 } from "firebase/firestore";
 import React, { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase/config";
-import { IoIosNotifications } from "react-icons/io";
+import { useChatStore } from "../lib/chatStore";
+import { compareAndCombineUid } from "../lib/functions";
 
-const UserSec = ({onuserclick}) => {
-  const [user] = useAuthState(auth);
+const UserSec = () => {
   const [chatList, setchatList] = useState([]);
   const [search, setSearch] = useState("");
+  const [user] = useAuthState(auth);
+  const { changeChat, chatID } = useChatStore();
 
   useEffect(() => {
     const unsubscribe = onSnapshot(doc(db, "friendList", user.uid), (doc) => {
       setchatList(doc.data());
+      console.log(doc.data());
     });
     return () => {
       unsubscribe();
@@ -42,11 +46,23 @@ const UserSec = ({onuserclick}) => {
         alert("user found");
         const userData = querySnapshot.docs[0].data();
         try {
-          const docRef = doc(db, "friendList", user.uid);
-          await updateDoc(docRef, {
+          await updateDoc(doc(db, "friendList", user.uid), {
             list: arrayUnion(userData), // Add the new item using arrayUnion
           });
           console.log("Item added successfully!");
+          const friendData = {
+            email: user.email,
+            uid: user.uid,
+            username: user.displayName,
+          };
+          await updateDoc(doc(db, "friendList", userData.uid), {
+            list: arrayUnion(friendData), // Add the new item using arrayUnion
+          });
+          const combinedID = compareAndCombineUid(user.uid, userData.uid);
+          await setDoc(doc(db, "chats", combinedID), {
+            chatId: combinedID,
+            messages: [],
+          });
         } catch (error) {
           console.error("Error adding item:", error);
         }
@@ -58,6 +74,12 @@ const UserSec = ({onuserclick}) => {
     }
   };
 
+  const handleSelect = async (chat) => {
+    const combinedID = compareAndCombineUid(user.uid, chat.uid);
+
+    await changeChat(combinedID, chat);
+    console.log(user.uid, chat.uid);
+  };
   return (
     <>
       <div className="h-full w-1/4 color1 flex flex-col">
@@ -70,7 +92,7 @@ const UserSec = ({onuserclick}) => {
             <div
               key={chat.uid}
               className="w-full h-12 hover:bg-black text-white poppins flex items-center text-xl px-5 "
-              onClick={onuserclick}
+              onClick={() => handleSelect(chat)}
             >
               {chat.username}
             </div>

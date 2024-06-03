@@ -2,19 +2,28 @@ import React, { useEffect, useRef, useState } from "react";
 import { Attach, SendButton } from "../assets";
 import Topbar from "./Topbar";
 import { useChatStore } from "../lib/chatStore";
-import { doc, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase/config";
+import { doc, onSnapshot, updateDoc, arrayUnion } from "firebase/firestore";
+import { auth, db } from "../firebase/config";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const MessageSec = () => {
+  const [user] = useAuthState(auth);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const { chatUser, chatID } = useChatStore();
   const messageContainerRef = useRef(null);
 
-  const handleMessageSend = () => {
+  const handleMessageSend = async () => {
     if (newMessage.trim() !== "") {
-      setMessages([...messages, newMessage]);
-      setNewMessage("");
+      const messageData = {
+        message: newMessage,
+        sender: user.uid,
+        timestamp: new Date().getTime(),
+      };
+
+      await updateDoc(doc(db, "chats", chatID), {
+        messages: arrayUnion(messageData), // Add the new item using arrayUnion
+      });
     }
   };
 
@@ -26,12 +35,11 @@ const MessageSec = () => {
   }, [messages]);
 
   useEffect(() => {
-    let unsubscribe;
-    if (chatID) {
-      unsubscribe = onSnapshot(doc(db, "chats", chatID), (doc) => {
-        setchatList(doc.data());
-      });
-    }
+    const unsubscribe = onSnapshot(doc(db, "chats", chatID), (doc) => {
+      console.log(doc.data());
+      setMessages(doc.data().messages);
+    });
+
     return () => {
       unsubscribe();
     };
@@ -41,19 +49,30 @@ const MessageSec = () => {
     <>
       <div className="h-full w-3/4 color2 flex flex-col">
         <div className="w-full height10 text-white poppins color5 main-background-effect">
-          <Topbar />
+          <Topbar name={chatUser.username} />
         </div>
 
         <div
-          className="h-full scrollabe w-full height80 pl-10 pr-10 pt-3 overflow-y-scroll "
+          className="h-full scrollabe w-full height80 pl-10 pr-10 pt-3 overflow-y-scroll"
           ref={messageContainerRef}
         >
           <div className="h-full w-full">
             {messages.map((message, index) => (
-              <div key={index} className="w-full flex justify-end mb-3">
-                <div className="p-3 color6 max-w-3xl break-words rounded-lg text-white poppins">
-                  {message}
-                </div>
+              <div
+                key={index}
+                className={`flex ${
+                  message.sender === user.uid ? "justify-end" : "justify-start"
+                } mb-4`}
+              >
+                {message.sender === user.uid ? (
+                  <div className="bg-blue-500 text-white rounded-lg p-2 max-w-sm">
+                    {message.message}
+                  </div>
+                ) : (
+                  <div className="bg-green-600 text-white rounded-lg p-2 max-w-sm">
+                    {message.message}
+                  </div>
+                )}
               </div>
             ))}
           </div>
