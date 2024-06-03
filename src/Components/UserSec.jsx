@@ -42,11 +42,18 @@ const UserSec = () => {
         alert("user found");
         const userData = querySnapshot.docs[0].data();
         try {
-          const docRef = doc(db, "friendList", user.uid);
-          await updateDoc(docRef, {
+          await updateDoc(doc(db, "friendList", user.uid), {
             list: arrayUnion(userData), // Add the new item using arrayUnion
           });
           console.log("Item added successfully!");
+          const friendData = {
+            uid: user.uid,
+            email: user.email,
+            username: user.displayName,
+          };
+          await updateDoc(doc(db, "friendList", userData.uid), {
+            list: arrayUnion(friendData), // Add the new item using arrayUnion
+          });
         } catch (error) {
           console.error("Error adding item:", error);
         }
