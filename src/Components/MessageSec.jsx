@@ -29,6 +29,19 @@ const MessageSec = () => {
     }
   };
 
+  const formatTimestamp = (timestamp) => {
+    const dateObject = new Date(timestamp);
+    const userLocale = navigator.language || navigator.languages[0]; // Get user's locale
+    const formatter = new Intl.DateTimeFormat(userLocale, {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    });
+    return formatter.format(dateObject);
+  };
+
   useEffect(() => {
     if (messageContainerRef.current) {
       messageContainerRef.current.scrollTop =
@@ -67,12 +80,22 @@ const MessageSec = () => {
                 } mb-4`}
               >
                 {message.sender === user.uid ? (
-                  <div className="color2 text-white rounded-lg p-3 max-w-sm">
-                    {message.message}
+                  <div className="flex flex-col">
+                    <div className="color2 flex items-center text-white rounded-lg p-3 max-w-3xl">
+                      {message.message}  
+                    </div>
+                    <div className=" text-xs text-gray-400 flex justify-end">
+                    {formatTimestamp(message.timestamp)}
+                    </div>
                   </div>
                 ) : (
-                  <div className="color8 text-white rounded-lg p-3 max-w-sm">
-                    {message.message}
+                  <div className="flex flex-col">
+                    <div className="color8 flex items-center text-white rounded-lg p-3 max-w-3xl">
+                      {message.message}  
+                    </div>
+                    <div className=" text-xs text-gray-400 flex justify-start">
+                    {formatTimestamp(message.timestamp)}
+                    </div>
                   </div>
                 )}
               </div>
@@ -108,3 +131,6 @@ const MessageSec = () => {
 };
 
 export default MessageSec;
+
+
+
