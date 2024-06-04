@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Attach, SendButton } from "../assets";
+
 import Topbar from "./Topbar";
 import { useChatStore } from "../lib/chatStore";
 import { doc, onSnapshot, updateDoc, arrayUnion } from "firebase/firestore";

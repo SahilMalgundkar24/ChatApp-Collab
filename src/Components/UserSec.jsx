@@ -94,12 +94,17 @@ const UserSec = () => {
           {chatList?.list?.map((chat) => (
             <div
               key={chat.uid}
-              className={`w-full h-12 mb-2 hover:bg-slate-500 poppins-bold flex text-white items-center text-lg px-5 rounded-lg ${
+              className={`w-full h-14 mb-2 hover:bg-slate-500 poppins-bold flex text-white items-center text-lg px-5 rounded-lg ${
                 selectedChat === chat.uid ? 'bg-slate-500' : ''
               }`}
               onClick={() => handleSelect(chat)}
             >
-              {chat.username}
+                <div className="h-10 w-10 bg-white mr-5 rounded-full" >
+
+                </div>
+              <div>
+                {chat.username}
+                </div>
             </div>
           ))}
         </div>

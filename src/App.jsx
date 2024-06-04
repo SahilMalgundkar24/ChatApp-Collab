@@ -11,8 +11,8 @@ const App = () => {
   return (
     <>
       {loading ? (
-        <div className="flex items-center justify-center h-screen">
-          <div className="lds-dual-ring text-4xl">LOADINGGGGG</div>
+        <div className="flex items-center color3 justify-center h-screen">
+          <div className="lds-dual-ring poppins-bold text-white text-4xl">LOADINGGGGG</div>
         </div>
       ) : user ? (
         <HomePage />                         
