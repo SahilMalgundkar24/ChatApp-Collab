@@ -1,101 +1,94 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Luxurious+Script&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Luxurious+Script&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-
-
-*{
+* {
   margin: 0;
   padding: 0;
 }
-body{
+body {
   height: 100vh;
   width: 100vw;
 }
 
-
-.color1{
-  background-color: #EEEEF8;
+.color1 {
+  background-color: #eeeef8;
 }
-.color2{
+.color2 {
   background-color: #7c98ff;
 }
-.color3{
+.color3 {
   background-color: #9394b9;
 }
-.color4{
+.color4 {
   background-color: #242435;
 }
-.color5{
+.color5 {
   background-color: #202027;
 }
-.color6{
-  background-color: #8181B7;
+.color6 {
+  background-color: #8181b7;
 }
-.color7{
-  background-color: #2B2B3A;
+.color7 {
+  background-color: #2b2b3a;
 }
-.color8{
+.color8 {
   background-color: #2e333d;
 }
-.mainBg{
+.mainBg {
   background-color: #202329;
 }
 
-
-.poppins{
+.poppins {
   font-family: "Poppins", sans-serif;
   font-style: normal;
   font-weight: 200;
 }
-.poppins-bold{
+.poppins-bold {
   font-family: "Poppins", sans-serif;
   font-style: normal;
   font-weight: 500;
 }
-.title{
+.title {
   font-family: "Luxurious Script", cursive;
   font-weight: 500;
   font-style: normal;
 }
 
-
-.height10{
+.height10 {
   height: 10%;
 }
-.height20{
+.height20 {
   height: 20%;
 }
-.height15{
+.height15 {
   height: 15%;
 }
-.height80{
+.height80 {
   height: 80%;
 }
-.height70{
+.height70 {
   height: 70%;
 }
 
-.mt-70{
+.mt-70 {
   margin-top: 70%;
 }
 
-.hidden{
+.hidden {
   display: none;
 }
 
-.input{
+.input {
   background-color: transparent;
   border: none;
   word-wrap: break-word;
   white-space: normal;
 }
-.input:focus{
+.input:focus {
   outline: none;
 }
 .main-background-effect {
@@ -103,7 +96,7 @@ body{
   backdrop-filter: blur(5px);
 }
 
-.scrollabe::-webkit-scrollbar{
+.scrollabe::-webkit-scrollbar {
   display: none;
 }
 .break-words {
@@ -111,4 +104,27 @@ body{
   overflow-wrap: break-word;
 }
 
-
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -12,10 +12,10 @@ const App = () => {
     <>
       {loading ? (
         <div className="flex items-center color3 justify-center h-screen">
-          <div className="lds-dual-ring poppins-bold text-white text-4xl">LOADINGGGGG</div>
+          <div className="lds-dual-ring poppins-bold text-white text-4xl"></div>
         </div>
       ) : user ? (
-        <HomePage />                         
+        <HomePage />
       ) : (
         <LoginSign />
       )}

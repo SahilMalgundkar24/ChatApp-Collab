@@ -13,6 +13,7 @@ const LoginSign = () => {
   const [signUser, setsignUser] = useState("");
   const [signEmail, setsignEmail] = useState("");
   const [signPass, setsignPass] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const signup = async () => {
     let user;
@@ -53,8 +54,7 @@ const LoginSign = () => {
         // ...
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        console.log(error.message);
       });
   };
   return (
@@ -156,7 +156,22 @@ const LoginSign = () => {
                   onChange={(e) => setsignPass(e.target.value)}
                 />
               </div>
-              
+              <div className="mb-4">
+                <label
+                  className="block text-white text-sm font-bold mb-2"
+                  htmlFor="new-password"
+                >
+                  Choose Profile Picture
+                </label>
+                <input
+                  type="file"
+                  id="avatar"
+                  name="avatar"
+                  accept="image/png, image/jpeg"
+                  onChange={(e) => setSelectedImage(e.target.files[0])}
+                />
+              </div>
+
               <div className="flex items-center justify-between">
                 <button
                   className="bg-white text-blue-500 hover:bg-gray-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
