@@ -48,8 +48,8 @@ const MessageSec = () => {
 
   return (
     <>
-      <div className="h-full w-3/4 mainBg flex flex-col px-2">
-        <div className="w-full height10 color3 poppins">
+      <div className="h-full w-3/4 mainBg flex flex-col px-2 pt-3" >
+        <div className="w-full height10 color3 poppins rounded-lg">
         <Topbar name={chatUser.username} />
         </div>
 
