@@ -5,6 +5,7 @@ import { useChatStore } from "../lib/chatStore";
 import { doc, onSnapshot, updateDoc, arrayUnion } from "firebase/firestore";
 import { auth, db } from "../firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { IoSend } from "react-icons/io5";
 
 const MessageSec = () => {
   const [user] = useAuthState(auth);
@@ -47,8 +48,8 @@ const MessageSec = () => {
 
   return (
     <>
-      <div className="h-full w-3/4 color2 flex flex-col">
-        <div className="w-full height10 text-white poppins color5 main-background-effect">
+      <div className="h-full w-3/4 flex flex-col px-2">
+        <div className="w-full height10 poppins-bold color3">
           <Topbar name={chatUser.username} />
         </div>
 
@@ -65,11 +66,11 @@ const MessageSec = () => {
                 } mb-4`}
               >
                 {message.sender === user.uid ? (
-                  <div className="bg-blue-500 text-white rounded-lg p-2 max-w-sm">
+                  <div className="color2 text-white rounded-lg p-3 max-w-sm">
                     {message.message}
                   </div>
                 ) : (
-                  <div className="bg-green-600 text-white rounded-lg p-2 max-w-sm">
+                  <div className="color1 rounded-lg p-3 max-w-sm">
                     {message.message}
                   </div>
                 )}
@@ -79,10 +80,8 @@ const MessageSec = () => {
         </div>
 
         <div className="w-full h-auto flex items-center justify-center p-4 pl-10 pr-10">
-          <form className="w-full h-full flex color4 rounded-lg pl-10 pr-5 text-white items-center">
-            <div className="h-full w-10 p-2">
-              <img src={Attach} />
-            </div>
+          <form className="w-full h-full flex color1 rounded-lg pl-5 pr-5 pt-1 pb-1 items-center">
+            
             <input
               className="input h-full w-full ml-3"
               type="text"
@@ -97,7 +96,7 @@ const MessageSec = () => {
               }}
             />
             <div className="h-full w-10 p-2">
-              <img onClick={handleMessageSend} src={SendButton} />
+              <IoSend onClick={handleMessageSend}/>
             </div>
           </form>
         </div>

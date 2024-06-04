@@ -15,7 +15,7 @@ const App = () => {
           <div className="lds-dual-ring text-4xl">LOADINGGGGG</div>
         </div>
       ) : user ? (
-        <HomePage />
+        <HomePage />                         
       ) : (
         <LoginSign />
       )}

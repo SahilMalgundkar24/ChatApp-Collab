@@ -20,6 +20,7 @@ const UserSec = () => {
   const [search, setSearch] = useState("");
   const [user] = useAuthState(auth);
   const { changeChat, chatID } = useChatStore();
+  const [selectedChat, setSelectedChat] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(doc(db, "friendList", user.uid), (doc) => {
@@ -79,19 +80,23 @@ const UserSec = () => {
 
     await changeChat(combinedID, chat);
     console.log(user.uid, chat.uid);
+    setSelectedChat(chat.uid);
+
   };
   return (
     <>
-      <div className="h-full w-1/4 color1 flex flex-col">
-        <div className="w-full height10 flex mt-2 px-5 poppins-bold text-2xl text-white">
+      <div className="h-full w-1/4 bg-white flex flex-col">
+        <div className="w-full height10 flex mt-2 px-5 justify-center items-center poppins-bold text-2xl">
           Chatting App
         </div>
 
-        <div className="w-full scrollabe height70 overflow-y-scroll ">
+        <div className="w-full px-2 scrollabe height70 overflow-y-scroll ">
           {chatList?.list?.map((chat) => (
             <div
               key={chat.uid}
-              className="w-full h-12 hover:bg-black text-white poppins flex items-center text-xl px-5 "
+              className={`w-full h-12 mb-2 hover:bg-slate-200 poppins-bold flex items-center text-lg px-5 rounded-lg ${
+                selectedChat === chat.uid ? 'bg-slate-200' : ''
+              }`}
               onClick={() => handleSelect(chat)}
             >
               {chat.username}
@@ -109,7 +114,7 @@ const UserSec = () => {
                 onChange={(e) => setSearch(e.target.value)}
               />
               <button
-                className=" w-1/5 h-3/4 color3 rounded-lg text-white poppins"
+                className=" w-1/5 h-3/4 hover:bg-slate-300 color3 rounded-lg poppins"
                 onClick={handleSearch}
               >
                 Add
@@ -120,10 +125,10 @@ const UserSec = () => {
 
         <div className="w-full height10 flex items-center justify-center px-4 py-2">
           <button
-            className="w-full h-full color3 rounded-lg text-white poppins"
+            className="w-full h-full hover:bg-slate-300 color3 rounded-lg poppins"
             onClick={signout}
           >
-            signout
+            Signout
           </button>
         </div>
       </div>
