@@ -48,9 +48,9 @@ const MessageSec = () => {
 
   return (
     <>
-      <div className="h-full w-3/4 flex flex-col px-2">
-        <div className="w-full height10 poppins-bold color3">
-          <Topbar name={chatUser.username} />
+      <div className="h-full w-3/4 mainBg flex flex-col px-2">
+        <div className="w-full height10 color3 poppins">
+        <Topbar name={chatUser.username} />
         </div>
 
         <div
@@ -70,7 +70,7 @@ const MessageSec = () => {
                     {message.message}
                   </div>
                 ) : (
-                  <div className="color1 rounded-lg p-3 max-w-sm">
+                  <div className="color8 text-white rounded-lg p-3 max-w-sm">
                     {message.message}
                   </div>
                 )}
@@ -80,7 +80,7 @@ const MessageSec = () => {
         </div>
 
         <div className="w-full h-auto flex items-center justify-center p-4 pl-10 pr-10">
-          <form className="w-full h-full flex color1 rounded-lg pl-5 pr-5 pt-1 pb-1 items-center">
+          <form className="w-full h-full flex color1 rounded-lg pl-5 pr-5 pt-2 pb-2 items-center">
             
             <input
               className="input h-full w-full ml-3"

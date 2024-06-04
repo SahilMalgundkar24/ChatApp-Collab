@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Luxurious+Script&display=swap');
 
 
 @tailwind base;
@@ -22,7 +23,7 @@ body{
   background-color: #EEEEF8;
 }
 .color2{
-  background-color: #7678ED;
+  background-color: #7c98ff;
 }
 .color3{
   background-color: #DBDCFF;
@@ -39,6 +40,12 @@ body{
 .color7{
   background-color: #2B2B3A;
 }
+.color8{
+  background-color: #2e333d;
+}
+.mainBg{
+  background-color: #202329;
+}
 
 
 .poppins{
@@ -50,6 +57,11 @@ body{
   font-family: "Poppins", sans-serif;
   font-style: normal;
   font-weight: 500;
+}
+.title{
+  font-family: "Luxurious Script", cursive;
+  font-weight: 500;
+  font-style: normal;
 }
 
 

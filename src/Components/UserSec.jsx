@@ -85,17 +85,17 @@ const UserSec = () => {
   };
   return (
     <>
-      <div className="h-full w-1/4 bg-white flex flex-col">
-        <div className="w-full height10 flex mt-2 px-5 justify-center items-center poppins-bold text-2xl">
-          Chatting App
+      <div className="h-full w-1/4 mainBg flex flex-col">
+        <div className="w-full height10 flex mt-2 px-5 justify-center text-white items-center title text-6xl">
+          ChatterBox
         </div>
 
         <div className="w-full px-2 scrollabe height70 overflow-y-scroll ">
           {chatList?.list?.map((chat) => (
             <div
               key={chat.uid}
-              className={`w-full h-12 mb-2 hover:bg-slate-200 poppins-bold flex items-center text-lg px-5 rounded-lg ${
-                selectedChat === chat.uid ? 'bg-slate-200' : ''
+              className={`w-full h-12 mb-2 hover:bg-slate-500 poppins-bold flex text-white items-center text-lg px-5 rounded-lg ${
+                selectedChat === chat.uid ? 'bg-slate-500' : ''
               }`}
               onClick={() => handleSelect(chat)}
             >
@@ -109,7 +109,7 @@ const UserSec = () => {
             <div className="w-full h-full flex justify-between">
               <input
                 type="text"
-                placeholder="Enter username to add a friend"
+                placeholder="Enter username"
                 className=" h-3/4 w-3/4 p-2 border rounded-lg"
                 onChange={(e) => setSearch(e.target.value)}
               />
