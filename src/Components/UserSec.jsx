@@ -14,6 +14,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase/config";
 import { useChatStore } from "../lib/chatStore";
 import { compareAndCombineUid } from "../lib/functions";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { IconContext } from "react-icons/lib";
 
 const UserSec = () => {
   const [chatList, setchatList] = useState([]);
@@ -21,6 +23,7 @@ const UserSec = () => {
   const [user] = useAuthState(auth);
   const { changeChat, chatID } = useChatStore();
   const [selectedChat, setSelectedChat] = useState(null);
+  const[usermenu,setusermenu]=useState(false);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(doc(db, "friendList", user.uid), (doc) => {
@@ -83,14 +86,26 @@ const UserSec = () => {
     setSelectedChat(chat.uid);
 
   };
+
+
+  const menuclicked=()=>{
+    setusermenu(!usermenu)
+  }
   return (
     <>
       <div className="h-full w-1/4 mainBg flex flex-col">
-        <div className="w-full height10 flex mt-2 px-5 justify-center text-white items-center title text-6xl">
-          ChatterBox
+        <div className="w-full height10 flex mt-2 px-5 justify-between items-center">
+          <div className="text-white title text-6xl">
+            ChatterBox
+          </div>
+          <div>
+            <IconContext.Provider value={{color : 'white',size :'30px' }}>
+              <GiHamburgerMenu onClick={menuclicked} />
+              </IconContext.Provider>
+          </div>
         </div>
 
-        <div className="w-full px-2 scrollabe height70 overflow-y-scroll ">
+        <div className="w-full px-2 scrollabe height80 overflow-y-scroll ">
           {chatList?.list?.map((chat) => (
             <div
               key={chat.uid}
@@ -128,15 +143,20 @@ const UserSec = () => {
           </div>
         </div>
 
-        <div className="w-full height10 flex items-center justify-center px-4 py-2">
-          <button
-            className="w-full h-full hover:bg-slate-300 color3 rounded-lg poppins"
-            onClick={signout}
-          >
-            Signout
-          </button>
+      </div>
+
+      {usermenu && (
+        <div className="absolute inset-0 h-70 mt-20 w-1/4 mainBg flex flex-col">
+          <div className="w-full h-14 mb-2 hover:bg-slate-500 poppins-bold flex text-white items-center text-lg px-5 rounded-lg ">
+              Update Profile pic
+          </div>
+          <div className="w-full h-14 mb-2 hover:bg-slate-500 poppins-bold flex text-white items-center text-lg px-5 rounded-lg"
+              onClick={signout}>
+          Signout
         </div>
       </div>
+      )}
+
     </>
   );
 };

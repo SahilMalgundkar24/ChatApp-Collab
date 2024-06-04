@@ -24,6 +24,6 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 // Exports
-export const storage = getStorage(firebaseApp, "gs://chat-app-collab.appspot.com");
+
 export const db = getFirestore(app);
 export const auth = getAuth(app);
