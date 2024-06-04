@@ -15,6 +15,7 @@ const MessageSec = () => {
   const messageContainerRef = useRef(null);
 
   const handleMessageSend = async () => {
+    setNewMessage("")
     if (newMessage.trim() !== "") {
       const messageData = {
         message: newMessage,
@@ -90,8 +91,9 @@ const MessageSec = () => {
               onChange={(e) => setNewMessage(e.target.value)}
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
-                  e.preventDefault(); // Prevent form submission
-                  handleMessageSend(); // Send message
+                  e.preventDefault(); 
+                  handleMessageSend();
+                  
                 }
               }}
             />
