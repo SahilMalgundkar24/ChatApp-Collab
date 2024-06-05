@@ -35,7 +35,6 @@ const UserSec = () => {
         const friendUidList = doc.data().list;
         console.log(friendUidList);
 
-        // Create an array of promises
         const promises = friendUidList.map(async (friend) => {
           const userRef = collection(db, "users");
           const q = query(userRef, where("uid", "==", friend.uid));
@@ -43,24 +42,18 @@ const UserSec = () => {
           return querySnapshot.docs[0].data();
         });
 
-        // Wait for all promises to resolve
         friendList = await Promise.all(promises);
-        console.log(friendList);
-
         setchatList(friendList);
       }
     );
-
     return () => {
       unsubscribe();
     };
   }, [user.uid]);
-  useEffect(() => {
-    console.log(chatList);
-  }, [chatList]);
 
   const signout = () => {
     auth.signOut();
+    changeChat(null, null);
   };
 
   const handleSearch = async (e) => {
@@ -120,7 +113,11 @@ const UserSec = () => {
           <div className="text-white title text-6xl">ChatterBox</div>
           <div>
             <IconContext.Provider value={{ color: "white", size: "30px" }}>
-              {usermenu ? <RxCross2 onClick={menuclicked} /> : <GiHamburgerMenu onClick={menuclicked} />}
+              {usermenu ? (
+                <RxCross2 onClick={menuclicked} />
+              ) : (
+                <GiHamburgerMenu onClick={menuclicked} />
+              )}
             </IconContext.Provider>
           </div>
         </div>
@@ -167,13 +164,13 @@ const UserSec = () => {
       </div>
 
       {usermenu && (
-        <div className="absolute inset-0 h-70 mt-20 w-1/4 mainBg flex flex-col px-3">
+        <div className="absolute inset-0 h-70 mt-20 w-1/4 mainBg flex flex-col px-3 pt-10">
           <div className="w-full h-full flex flex-col items-center text-white px-5 ">
-            <div className=" w-24 h-24 mt-2 mb-3 flex items-center justify-center px-5 bg-slate-500 poppins-bold text-lg rounded-full">
-
+            <div className="w-24 h-24 mt-2 mb-3 flex items-center justify-center bg-slate-500 poppins-bold text-lg rounded-full">
+              <img className="w-24 h-24 rounded-full" src={user.photoURL}></img>
             </div>
             <div className="w-full justify-center poppins-bold text-xl flex">
-              <div>user</div>
+              <div>{user.displayName}</div>
               <div className="mt-1">
                 <MdEdit />
               </div>

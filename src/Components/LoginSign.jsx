@@ -39,6 +39,10 @@ const LoginSign = () => {
           await setDoc(doc(db, "friendList", user.uid), {
             list: [],
           });
+          await updateProfile(auth.currentUser, {
+            displayName: signUser,
+            photoURL: userUrl,
+          });
         } catch (e) {
           alert(e);
         }
