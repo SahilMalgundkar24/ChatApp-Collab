@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { auth, db } from "../firebase/config";
+import { auth, db, storage } from "../firebase/config";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const LoginSign = () => {
   const [logEmail, setlogEmail] = useState("");
@@ -17,44 +18,45 @@ const LoginSign = () => {
 
   const signup = async () => {
     let user;
+    let userUrl;
     await createUserWithEmailAndPassword(auth, signEmail, signPass)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         // Signed up
         user = userCredential.user;
+        console.log("", user);
+        try {
+          const storageRef = ref(storage, `profilePicture/${user.uid}.jpg`);
+          await uploadBytes(storageRef, selectedImage);
+          await getDownloadURL(storageRef).then(async (url) => {
+            userUrl = url;
+          });
+          await setDoc(doc(db, "users", user.uid), {
+            email: user.email,
+            username: signUser,
+            uid: user.uid,
+            profilePicture: userUrl,
+          });
+          await setDoc(doc(db, "friendList", user.uid), {
+            list: [],
+          });
+        } catch (e) {
+          alert(e);
+        }
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        alert(error.message);
       });
-    console.log("", user);
-    await updateProfile(auth.currentUser, { displayName: signUser }).catch(
-      (err) => console.log(err)
-    );
-    try {
-      await setDoc(doc(db, "users", user.uid), {
-        email: user.email,
-        username: user.displayName,
-        uid: user.uid,
-      });
-      await setDoc(doc(db, "friendList", user.uid), {
-        list: [],
-      });
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
-
-    // ...
   };
   const login = () => {
     signInWithEmailAndPassword(auth, logEmail, logPass)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(user);
+        console.log(user.photoURL);
         // ...
       })
       .catch((error) => {
-        console.log(error.message);
+        alert(error.message);
       });
   };
   return (
@@ -165,8 +167,6 @@ const LoginSign = () => {
                 </label>
                 <input
                   type="file"
-                  id="avatar"
-                  name="avatar"
                   accept="image/png, image/jpeg"
                   onChange={(e) => setSelectedImage(e.target.files[0])}
                 />

@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import { getApp, initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
@@ -16,7 +16,8 @@ const firebaseConfig = {
     storageBucket: "chat-app-collab.appspot.com",
     messagingSenderId: "1091973585558",
     appId: "1:1091973585558:web:e13555b97ac701f3b980b7",
-    measurementId: "G-P9DSW70NQL"
+    measurementId: "G-P9DSW70NQL",
+    storageBucket: "chat-app-collab.appspot.com",
 };
 
 // Initialize Firebase
@@ -24,6 +25,6 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 // Exports
-
+export const storage = getStorage(app);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
