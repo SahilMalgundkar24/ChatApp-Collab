@@ -169,13 +169,15 @@ const UserSec = () => {
       {usermenu && (
         <div className="absolute inset-0 h-70 mt-20 w-1/4 mainBg flex flex-col px-3">
           <div className="w-full h-full flex flex-col items-center text-white px-5 ">
-            {/* <div className=" w-24 h-24 mt-2 mb-3 flex items-center justify-center px-5 bg-slate-500 poppins-bold text-lg rounded-full"></div>
-            <div className="w-2/5 justify-between poppins-bold text-xl flex">
-              <div>Username</div>
+            <div className=" w-24 h-24 mt-2 mb-3 flex items-center justify-center px-5 bg-slate-500 poppins-bold text-lg rounded-full">
+
+            </div>
+            <div className="w-full justify-center poppins-bold text-xl flex">
+              <div>user</div>
               <div className="mt-1">
                 <MdEdit />
               </div>
-            </div> */}
+            </div>
           </div>
           <div
             className="w-full h-14 mb-2 hover:bg-slate-500 poppins-bold flex text-white items-center text-lg px-5 rounded-lg"

@@ -64,7 +64,7 @@ const MessageSec = () => {
     <>
       <div className="h-full w-3/4 mainBg flex flex-col px-2 pt-3">
         <div className="w-full height10 color3 poppins-bold rounded-lg">
-          <Topbar name={chatUser.username} />
+          <Topbar name={chatUser.username} profilePicture={chatUser.profilePicture} />
         </div>
 
         <div

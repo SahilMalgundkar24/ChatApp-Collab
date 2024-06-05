@@ -54,6 +54,7 @@ const LoginSign = () => {
         const user = userCredential.user;
         console.log(user.photoURL);
         // ...
+        window.location.href = "/?reload=true";
       })
       .catch((error) => {
         alert(error.message);
